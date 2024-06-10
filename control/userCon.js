@@ -49,7 +49,7 @@ const signupUser = async (req, res) => {
       const exists = await User.findOne({ email })
     
       if (exists) {
-        throw Error('Email already in use')
+        return res.status(400).json({ error: 'Invalid email' });
       }
     
       const salt = await bcrypt.genSalt(10)
