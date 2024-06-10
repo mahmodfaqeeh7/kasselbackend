@@ -55,6 +55,7 @@ const showCourse = async (req, res) => {
 
 
 
+
 const AddCourse = async (req, res) => {
       const {studentid } = req.params;
       const  courseid  = req.body.courseid;
@@ -72,6 +73,11 @@ const AddCourse = async (req, res) => {
           console.log('Course not found')
           return res.status(404).send('Course not found');
         }
+
+        if(student.mycourses.some(course => course == courseid))
+          {
+            return res.status(404).send('already joined');
+          }
     
         await User.updateOne(
           { _id: student._id },
